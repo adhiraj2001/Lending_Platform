@@ -15,13 +15,13 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
 
-const Lender_Transactions = () => {
+const Borrower_Transactions = () => {
 
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
         axios
-            .post("http://localhost:4000/api/transactions/view_lender", { lender_email: ls.get("email") })
+            .post("http://localhost:4000/transactions/view_borrower", { borrower_email: ls.get("email") })
             .then((res) => {
                 console.log(res.data);
                 setTransactions(res.data);
@@ -35,42 +35,52 @@ const Lender_Transactions = () => {
 
     //! ^ RELOAD THIS PAGE ON STATE VARIABLE STATUS ^ !//
 
-    const onTransaction = args => event => {
-        const updateTransaction = {
-            _id: transactions[args]._id,
-            borrower_email: transactions[args].borrower_email,
-            lender_email: transactions[args].lender_email,
-            amount: transactions[args].amount,
-            status: "Completed"
-        }
+    // const onTransaction = args => event => {
+    //     const updateTransaction = {
+    //         _id: transactions[args]._id,
+    //         borrower_email: transactions[args].borrower_email,
+    //         lender_email: transactions[args].lender_email,
+    //         amount: transactions[args].amount,
+    //         status: "Completed"
+    //     };
 
-        axios
-            .post("http://localhost:4000/api/transactions/update", updateTransaction)
-            .then((res) => {
-                console.log(res.data);
-                transactions[args].status = updateTransaction.status;
+    //     if (transactions[args].status === "Placed") {
+    //         updateTransaction.status = "Accepted";
+    //     }
+    //     else if (transactions[args].status === "Accepted") {
+    //         updateTransaction.status = "Cooking";
+    //     }
+    //     else if (transactions[args].status === "Cooking") {
+    //         updateTransaction.status = "Ready for Pickup";
+    //     }
 
-                alert(`Transfer done successfully!`);
-                window.location.reload();
-            })
-            .catch((err) => {
-                console.log(err);
+    //     axios
+    //         .post("http://localhost:4000/transactions/update", updateTransaction)
+    //         .then((res) => {
+    //             console.log(res.data);
+    //             transactions[args].status = updateTransaction.status;
 
-                console.log(err.response.data);
-                alert(err.response.data[Object.keys(err.response.data)[0]]);
+    //             alert(`Transfer completed`);
+    //             window.location.reload();
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
 
-                window.location.reload();
-            });
-    }
+    //             console.log(err.response.data);
+    //             alert(err.response.data[Object.keys(err.response.data)[0]]);
+
+    //             window.location.reload();
+    //         });
+    // }
 
     return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650, background: "rgba(0, 0, 0, 0.1)" }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center"> Sr No. </TableCell>
-            <TableCell align="center"> Lender_Email </TableCell>
+            <TableCell align="center"> Sr No.</TableCell>
             <TableCell align="center"> Borrower_Email </TableCell>
+            <TableCell align="center"> Lender_Email </TableCell>
             <TableCell align="center"> Amount </TableCell>
             <TableCell align="center"> Date </TableCell>
             {/* <TableCell align="center"> Status </TableCell> */}
@@ -81,15 +91,15 @@ const Lender_Transactions = () => {
             <TableRow
                 key={ind}
               >
-                <TableCell align="center">{ind + 1}</TableCell>
+                <TableCell align="center">{ind + 1}</TableCell>  
+                <TableCell align="center"> {row.borrower_email} </TableCell>
                 <TableCell align="center">{row.lender_email}</TableCell>
-                <TableCell align="center">{row.borrower_email}</TableCell>
                 <TableCell align="center">{row.amount}</TableCell>
                 <TableCell align="center">{row.date}</TableCell>
                 {/* <TableCell align="center">
                       <Typography
                           style={{
-                             backgroundColor:
+                              backgroundColor:
                                   (row.status === "Placed" && "grey") ||
                                   (row.status === "Accepted" && "green") ||
                                   (row.status === "Cooking" && "yellow") ||
@@ -108,7 +118,7 @@ const Lender_Transactions = () => {
                     </Typography>
                 </TableCell> */}
                 {/* <TableCell align="center">
-                      <Button variant="contained" onClick={onOrder(ind)} disabled={row.status !== "Ready for Pickup"} sx={{ ml: 2 }} > Pick Up </Button>
+                      <Button variant="contained" onClick={onOrder1(ind)} disabled={row.status !== "Placed" && row.status !== "Accepted" && row.status !== "Cooking"} sx={{ ml: 2 }} > Pick Up </Button>
                       <Button variant="contained" onClick={onOrder2(ind)} disabled={row.status === "Completed" || row.status === "Rejected"} sx={{ ml: 2 }} > Cancel </Button>
                 </TableCell> */}
             </TableRow>
@@ -119,4 +129,4 @@ const Lender_Transactions = () => {
   );
 }
 
-export default Lender_Transactions;
+export default Borrower_Transactions;

@@ -41,7 +41,7 @@ const Requests_List = (props) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:4000/api/requests")
+            .get("http://localhost:4000/requests")
             .then((res) => {
                     console.log(res.data);
                     setRequests(res.data);
@@ -56,7 +56,7 @@ const Requests_List = (props) => {
         // rowQuantity.fill(1);
         
         axios
-            .get("http://localhost:4000/api/users")
+            .get("http://localhost:4000/users")
             .then((res) => {
                     console.log(res.data); 
                     setBorrowers(res.data);
@@ -156,7 +156,7 @@ const Requests_List = (props) => {
         }
 
         axios
-            .post("http://localhost:4000/api/transactions/add", newTransaction)
+            .post("http://localhost:4000/transactions/add", newTransaction)
             .then((res) => {
 
                 console.log(res.data);
@@ -174,7 +174,7 @@ const Requests_List = (props) => {
                 // TODO: Maybe DELETE or remove button
                 
                 axios
-                    .post("http://localhost:4000/api/requests/update", updateRequest)
+                    .post("http://localhost:4000/requests/update", updateRequest)
                     .then((res) => {
                         // console.log("WORKING");
                         console.log(res.data);
@@ -201,7 +201,7 @@ const Requests_List = (props) => {
                 }
 
                 axios
-                    .post("http://localhost:4000/api/users/update", updateUser)
+                    .post("http://localhost:4000/users/update", updateUser)
                     .then((res) => {
                         console.log(res.data);
                         ls.set("balance", remBalance);
@@ -212,6 +212,47 @@ const Requests_List = (props) => {
                         console.log(err.response.data);
                         alert(err.response.data[Object.keys(err.response.data)[0]]);
                 
+                        window.location.reload();
+                        return;
+                    });
+
+                axios
+                    .post("http://localhost:4000/users/find", {email: sortedRequests[args].borrower_email})
+                    .then((res) => {
+                        console.log(res.data);
+                        const newBalance = res.data.balance + newAmount;
+                        const updateBorrower = {
+                            _id: res.data._id,
+                            name: res.data.name,
+                            email: res.data.email,
+                            password: res.data.password,
+                            contact_no: res.data.contact_no,
+                            age: res.data.age,
+                            balance: newBalance,
+                        }
+
+                        axios
+                            .post("http://localhost:4000/users/update", updateBorrower)
+                            .then((res) => {
+                                console.log(res.data);
+                                ls.set("balance", newBalance);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+
+                                console.log(err.response.data);
+                                alert(err.response.data[Object.keys(err.response.data)[0]]);
+
+                                window.location.reload();
+                                return;
+                            });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+
+                        console.log(err.response.data);
+                        alert(err.response.data[Object.keys(err.response.data)[0]]);
+
                         window.location.reload();
                         return;
                     });

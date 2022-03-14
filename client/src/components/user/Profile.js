@@ -101,7 +101,7 @@ class Profile extends Component {
 
         console.log(newUser);
 
-        axios.post("http://localhost:4000/api/users/update", newUser)
+        axios.post("http://localhost:4000/users/update", newUser)
             .then(res => {
                 console.log(res.data);
 

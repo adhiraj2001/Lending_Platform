@@ -2,12 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const path = require('path');
 
 // const passport = require('passport');
 
-const PORT = process.env.PORT || 4000;
+
 const DB_NAME = 'lending_platform';
 
 // const connectionString = 'mongodb://127.0.0.1:27017/' + DB_NAME;
@@ -33,10 +32,12 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreat
 //     .then(() => console.log('MongoDB Connected...'))
 //     .catch(err => console.log('Error: ' + err));
 
-// const connection = mongoose.connection;
-// connection.once('open', function() {
-//     console.log("MongoDB database connection established successfully !");
-// });
+
+const connection = mongoose.connection;
+connection.once('open', function() {
+    console.log("MongoDB database connection established successfully !");
+});
+
 
 //* Passport middleware
 // app.use(passport.initialize());
@@ -52,25 +53,18 @@ var TransactionRouter = require("./routes/TransactionAPI");
 
 
 //* setup API endpoints
-app.use("/api/users", UserRouter);
-app.use("/api/requests", RequestRouter);
-app.use("/api/transactions", TransactionRouter);
+app.use("/users", UserRouter);
+app.use("/requests", RequestRouter);
+app.use("/transactions", TransactionRouter);
 
-// ---------- deployment ----------
-
-if(process.env.NODE_ENV === 'production') { 
-    app.use(express.static('/frontend/build'));
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-    });
-}
-else {
-    app.get("/", (req, res) => {
-        res.send('API is running.');
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }
 
-// --------------------------------
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => console.log(`Server is running on Port: ${PORT}`));

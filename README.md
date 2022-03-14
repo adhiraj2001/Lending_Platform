@@ -3,10 +3,17 @@
 ## About
 
 Crypto Lending Platform based Alchemix DeFi Protocol which allows user to take self-repaying loans.
+User can post public requests for crypto loans, which would be self-repaying.
 
-User can post public requests for crypto loans.
-
-Which would be self-repaying.
+Current working functionalities:
+1. Users can create their accounts in 'Register' page, and log into the website using 'Login' page.
+2. Users can update their profiles and add funds to their wallets using 'Profile' page.
+3. Users can create public requests for obtaining loans as borrower using 'Add Request' page.
+4. Users can see publicly requests of other users using 'Requests List' page.
+5. Users can accept public requests and provide loans to borrowers as lenders using the same page on click 'Lend' button.
+6. Users can see the status of their requests in 'My Requests' page.
+7. Users can see their transactions as borrowers and lenders to other users using 'My Borrower Transactions' and 'My Lender Transactions' page respectively.
+8. Users can log out of the website using 'Logout' button.
 
 ## Build
 
