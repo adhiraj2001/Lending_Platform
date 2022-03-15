@@ -20,7 +20,7 @@ const User_Requests = () => {
 
   useEffect(() => {
       axios
-          .post("http://localhost:4000/requests/view", { borrower_email: ls.get("email") })
+          .post("/api/requests/view", { borrower_email: ls.get("email") })
           .then((res) => {
               console.log(res.data);
               setRequests(res.data);
@@ -32,7 +32,7 @@ const User_Requests = () => {
   
   const onCancel = args => event => {
       axios
-          .post("http://localhost:4000/requests/delete", { _id: requests[args]._id })
+          .post("/api/requests/delete", { _id: requests[args]._id })
           .then((res) => {
               console.log(res.data);
 

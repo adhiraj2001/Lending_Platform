@@ -46,7 +46,7 @@ class Login extends Component {
 
     
         axios
-            .post("http://localhost:4000/users/login", userData)
+            .post("/api/users/login", userData)
             .then(res => {
                 console.log(res.data);
 

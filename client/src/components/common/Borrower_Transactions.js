@@ -21,7 +21,7 @@ const Borrower_Transactions = () => {
 
     useEffect(() => {
         axios
-            .post("http://localhost:4000/transactions/view_borrower", { borrower_email: ls.get("email") })
+            .post("/api/transactions/view_borrower", { borrower_email: ls.get("email") })
             .then((res) => {
                 console.log(res.data);
                 setTransactions(res.data);
@@ -55,7 +55,7 @@ const Borrower_Transactions = () => {
     //     }
 
     //     axios
-    //         .post("http://localhost:4000/transactions/update", updateTransaction)
+    //         .post("/api/transactions/update", updateTransaction)
     //         .then((res) => {
     //             console.log(res.data);
     //             transactions[args].status = updateTransaction.status;

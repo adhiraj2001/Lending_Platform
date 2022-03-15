@@ -41,7 +41,7 @@ const Requests_List = (props) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:4000/requests")
+            .get("/api/requests")
             .then((res) => {
                     console.log(res.data);
                     setRequests(res.data);
@@ -56,7 +56,7 @@ const Requests_List = (props) => {
         // rowQuantity.fill(1);
         
         axios
-            .get("http://localhost:4000/users")
+            .get("/api/users")
             .then((res) => {
                     console.log(res.data); 
                     setBorrowers(res.data);
@@ -156,7 +156,7 @@ const Requests_List = (props) => {
         }
 
         axios
-            .post("http://localhost:4000/transactions/add", newTransaction)
+            .post("/api/transactions/add", newTransaction)
             .then((res) => {
 
                 console.log(res.data);
@@ -174,7 +174,7 @@ const Requests_List = (props) => {
                 // TODO: Maybe DELETE or remove button
                 
                 axios
-                    .post("http://localhost:4000/requests/update", updateRequest)
+                    .post("/api/requests/update", updateRequest)
                     .then((res) => {
                         // console.log("WORKING");
                         console.log(res.data);
@@ -201,7 +201,7 @@ const Requests_List = (props) => {
                 }
 
                 axios
-                    .post("http://localhost:4000/users/update", updateUser)
+                    .post("/api/users/update", updateUser)
                     .then((res) => {
                         console.log(res.data);
                         ls.set("balance", remBalance);
@@ -217,7 +217,7 @@ const Requests_List = (props) => {
                     });
 
                 axios
-                    .post("http://localhost:4000/users/find", {email: sortedRequests[args].borrower_email})
+                    .post("/api/users/find", {email: sortedRequests[args].borrower_email})
                     .then((res) => {
                         console.log(res.data);
                         const newBalance = res.data.balance + newAmount;
@@ -232,7 +232,7 @@ const Requests_List = (props) => {
                         }
 
                         axios
-                            .post("http://localhost:4000/users/update", updateBorrower)
+                            .post("/api/users/update", updateBorrower)
                             .then((res) => {
                                 console.log(res.data);
                             })

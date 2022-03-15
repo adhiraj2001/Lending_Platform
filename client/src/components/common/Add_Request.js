@@ -62,7 +62,7 @@ class Add_Request extends Component {
 
         console.log(newRequest);
 
-        axios.post("http://localhost:4000/requests/add", newRequest)
+        axios.post("/api/requests/add", newRequest)
             .then(res => {
                 console.log(res.data);
 

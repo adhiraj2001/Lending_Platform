@@ -77,7 +77,7 @@ class Register extends Component {
 
         console.log(newUser);
 
-        axios.post("http://localhost:4000/users/register", newUser)
+        axios.post("/api/users/register", newUser)
             .then(res => {
                 alert("User Registered Successfully");
                 this.reset();
