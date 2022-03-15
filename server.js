@@ -53,9 +53,9 @@ var TransactionRouter = require("./routes/TransactionAPI");
 
 
 //* setup API endpoints
-app.use("/users", UserRouter);
-app.use("/requests", RequestRouter);
-app.use("/transactions", TransactionRouter);
+app.use("/api/users", UserRouter);
+app.use("/api/requests", RequestRouter);
+app.use("/api/transactions", TransactionRouter);
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
