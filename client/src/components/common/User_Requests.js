@@ -74,7 +74,7 @@ const User_Requests = () => {
                                 (row.status === "Pending" && "grey") ||
                                 (row.status === "Waiting" && "grey") ||
                                 (row.status === "Complete" && "green") ||
-                                (row.status === "Rejected" && "red"),
+                                (row.status === "Deleted" && "red"),
                             color: "white",
                             padding: "5px",
                             borderRadius: "5px",
@@ -88,7 +88,7 @@ const User_Requests = () => {
                 </TableCell>
                 <TableCell align="center">{row.date}</TableCell>
                 <TableCell align="center">
-                      <Button variant="contained" onClick={onCancel(ind)} sx={{ ml: 2 }} > Delete </Button>
+                      <Button variant="contained" disabled={row.status === "Complete"} onClick={onCancel(ind)} sx={{ ml: 2 }} > Delete </Button>
                 </TableCell>
             </TableRow>
           ))}

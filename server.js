@@ -9,7 +9,7 @@ const path = require('path');
 
 const DB_NAME = 'lending_platform';
 
-// const connectionString = 'mongodb://127.0.0.1:27017/' + DB_NAME;
+const connectionString = 'mongodb://127.0.0.1:27017/' + DB_NAME;
 // const connectionString = 'mongodb://mongo:27017/' + DB_NAME;    // for docker container
 
 const app = express();

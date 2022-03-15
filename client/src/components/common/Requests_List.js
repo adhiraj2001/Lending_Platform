@@ -235,7 +235,6 @@ const Requests_List = (props) => {
                             .post("http://localhost:4000/users/update", updateBorrower)
                             .then((res) => {
                                 console.log(res.data);
-                                ls.set("balance", newBalance);
                             })
                             .catch((err) => {
                                 console.log(err);
@@ -268,7 +267,8 @@ const Requests_List = (props) => {
 
                 window.location.reload();
             });
-    }
+    };
+
 
     return (
         <div>
